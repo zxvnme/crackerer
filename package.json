@@ -1,0 +1,12 @@
+{
+  "name": "crackerer",
+  "author": "zxvnme",
+  "license": "MIT",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "steam-web": "^0.6.0"
+  }
+}
