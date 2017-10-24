@@ -8,6 +8,8 @@ It's very simple. All you need to do is install `steam-web` package from node pa
 |----------|----------|----------------------------------------------|
 | interval | int      | Time, that app will wait before each check.  |
 | path     | string   | Path to our bruteforce dictionary.           |
-| author   | none     | Prints info abou author to console.          |
-| clear    | none     | Clears the console.                          |
-| start    | none     | Starts the bruteforce.                       |
+| author   | -        | Prints info abou author to console.          |
+| clear    | -        | Clears the console.                          |
+| start    | -        | Starts the bruteforce.                       |
+| exit     | -        | Terminates process.                          |
+| help     | -        | Prints all commands with explainations.      |
