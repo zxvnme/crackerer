@@ -2,7 +2,7 @@ const filesystem = require('fs');
 const steamapi = require('steam-web');
 const readline = require('readline');
 const config = require('./config.json');
-const package = require('./package.json');
+const pack = require('./package.json');
 const steam = new steamapi({ apiKey: config.apikey, format: 'json' });
 const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
 
@@ -40,11 +40,14 @@ rl.on('line', (input) => {
             rl.prompt();
             break;
         case 'author':
-            console.log('\nzxvnme\ngithub.com/zxvnme/crackerer\n' + package.version + '\n');
+            console.log('\nzxvnme\ngithub.com/zxvnme/crackerer\n' + pack.version + '\n');
             rl.prompt();
             break;
         case 'clear':
-            console.log('\033[2J');
+            let lines = process.stdout.getWindowSize()[1];
+            for (let i = 0; i < lines; i++) {
+                console.log('\r\n');
+            };
             rl.prompt();
             break;
         case 'start':
