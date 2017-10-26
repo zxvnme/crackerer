@@ -6,16 +6,18 @@ const pack = require('./package.json');
 const steam = new steamapi({ apiKey: config.apikey, format: 'json' });
 const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
 
+let args;
+let output;
 let dictionary;
 let dictionary_interval;
 let dictionary_path;
-rl.setPrompt('>> ');
+rl.setPrompt(config.prompt);
 rl.prompt();
 rl.on('line', (input) => {
-    let args = input.split(' ');
+    args = input.split(' ');
     switch (args[0]) {
         case 'help':
-            console.log('\n interval <int>  Sets the interval. Default is 600ms.\n path <path>  Sets path to your dictionary.\n author  Shows author of the app.\n clear  Clears the console.\n exit  Quits the app.\n start  Starts the bruteforce.\n');
+            console.log('\n save  Saves output to the text file.\n interval <int>  Sets the interval. Default is 600ms.\n path <path>  Sets path to your dictionary.\n author  Shows author of the app.\n clear  Clears the console.\n exit  Quits the app.\n start  Starts the bruteforce.\n');
             rl.prompt();
             break;
         case 'exit':
@@ -52,12 +54,15 @@ rl.on('line', (input) => {
             break;
         case 'start':
             if (dictionary_path != null) {
-                crackerer();
-                rl.prompt();
+                startCrackerer();
             } else {
                 console.log('    Cannot start because of no path specified :(');
                 return rl.prompt();
             }
+            break;
+        case 'save':
+            saveCrackerer();
+            rl.prompt();
             break;
         default:
             rl.prompt();
@@ -65,22 +70,45 @@ rl.on('line', (input) => {
     }
 });
 
-function crackerer() {
+
+
+function saveCrackerer() {
+    let statistics;
+    filesystem.stat('./_logs', (err, stats) => {
+        if (!err) {
+            filesystem.writeFile('./_logs/output.txt', output, (err) => {
+                console.log('    Saved!');
+            });
+        } else if (err.code === 'ENOENT') {
+            filesystem.mkdir('./_logs/');
+        }
+    });
+}
+
+function startCrackerer() {
+    function log(message) {
+        output = output + '\n' + message;
+        console.log(message);
+    }
     filesystem.readFile(dictionary_path, (err, data) => {
         dictionary = data.toString().split('\r\n');
         for (let index = 0; index < dictionary.length; ++index) {
-            setTimeout((i) => {
+            setTimeout(() => {
                 let value = dictionary[index];
                 steam.resolveVanityURL({
                     vanityurl: value.toString(),
                     callback: function (err, data) {
-                        console.log(dictionary[index] + '  ' + data.response.steamid);
+                        log(dictionary[index] + '  ' + data.response.steamid);
                     }
                 })
             }, ((dictionary_interval) ? dictionary_interval : 600) * index)
         };
     });
 }
+
+
+
+
 
 
 

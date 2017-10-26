@@ -1,3 +1,4 @@
 {
-    "apikey": "your steam web api key here"
+    "apikey": "your steam web api key here",
+    "prompt": ">> "
 }
