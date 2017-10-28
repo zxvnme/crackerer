@@ -17,7 +17,7 @@ rl.on('line', (input) => {
     args = input.split(' ');
     switch (args[0]) {
         case 'help':
-            console.log('\n save  Saves output to the text file.\n interval <int>  Sets the interval. Default is 600ms.\n path <path>  Sets path to your dictionary.\n author  Shows author of the app.\n clear  Clears the console.\n exit  Quits the app.\n start  Starts the bruteforce.\n');
+            console.log('\n save  Saves output to the text file.\n check <string>  Checks single URL specified in argument. \n interval <int>  Sets the interval. Default is 600ms.\n path <path>  Sets path to your dictionary.\n author  Shows author of the app.\n clear  Clears the console.\n exit  Quits the app.\n start  Starts the bruteforce.\n');
             rl.prompt();
             break;
         case 'exit':
