@@ -60,6 +60,19 @@ rl.on('line', (input) => {
                 return rl.prompt();
             }
             break;
+        case 'check':
+            if (!args[1]) {
+                console.log('    Invalid syntax! Usage:  check <name>');
+                return rl.prompt();
+            }
+            steam.resolveVanityURL({
+                vanityurl: args[1],
+                callback: (err, data) => {
+                    log(args[1] + ' ' + ((!data.response.steamid) ? '    Not claimed!' : data.response.steamid));
+                    rl.prompt();
+                }
+            });
+            break;
         case 'save':
             saveCrackerer();
             rl.prompt();
@@ -70,7 +83,10 @@ rl.on('line', (input) => {
     }
 });
 
-
+function log(message) {
+    output = output + '\n' + message;
+    console.log(message);
+}
 
 function saveCrackerer() {
     let statistics;
@@ -86,19 +102,16 @@ function saveCrackerer() {
 }
 
 function startCrackerer() {
-    function log(message) {
-        output = output + '\n' + message;
-        console.log(message);
-    }
     filesystem.readFile(dictionary_path, (err, data) => {
         dictionary = data.toString().split('\r\n');
         for (let index = 0; index < dictionary.length; ++index) {
             setTimeout(() => {
                 let value = dictionary[index];
                 steam.resolveVanityURL({
-                    vanityurl: value.toString(),
-                    callback: function (err, data) {
-                        log(dictionary[index] + '  ' + data.response.steamid);
+                    vanityurl: value,
+                    callback: (err, data) => {
+                        log(dictionary[index] + '  ' + ((!data.response.steamid) ? '   Not claimed!' : data.response.steamid));
+                        rl.prompt();
                     }
                 })
             }, ((dictionary_interval) ? dictionary_interval : 600) * index)
