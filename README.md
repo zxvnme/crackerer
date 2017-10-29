@@ -1,3 +1,11 @@
+<p align="center">
+    <img src="./resources/128.png">
+</p>
+
+<p align="center">
+    <a href="https://discord.gg/yBaGekJ"><img src="https://img.shields.io/discord/374149373178937344.svg"></a>
+</p>
+
 ## crackerer
 ### What is it?
 Crackerer is simple bruteforce-based application written in node.js that allows you to check for unique steam names.
