@@ -20,6 +20,7 @@ If you dont have basic knowledge about programming, navigate to RELEASES tab on 
 |----------|------------------|----------------------------------------------|
 | interval | int              | Time, that app will wait before each check.  |
 | path     | string           | Path to our bruteforce dictionary.           |
+| mode     | profile/group    | Sets cracking mode.                          |
 | check    | string           | Checks single URL specified in argument.     |
 | save     | -                | Saves output to the text file.               |
 | author   | -                | Prints info about author to console.         |
