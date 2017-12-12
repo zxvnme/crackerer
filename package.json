@@ -2,7 +2,7 @@
   "name": "crackerer",
   "author": "zxvnme",
   "license": "MIT",
-  "version": "1.0.1 beta",
+  "version": "1.0.1",
   "scripts": {
     "start": "node app.js"
   },
